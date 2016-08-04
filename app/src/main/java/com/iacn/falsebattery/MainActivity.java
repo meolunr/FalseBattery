@@ -6,6 +6,7 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -16,6 +17,7 @@ import android.widget.Toast;
 public class MainActivity extends Activity {
     private EditText etBattery;
     private SharedPreferences mPref;
+    private InputMethodManager mManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,6 +26,7 @@ public class MainActivity extends Activity {
         StatusBarUtils.setColor(this, getResources().getColor(R.color.gray));
 
         etBattery = (EditText) findViewById(R.id.et_battery);
+        mManager = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
 
         mPref = getSharedPreferences(Constant.FILE_NAME_SETTING, MODE_WORLD_READABLE);
         int value = mPref.getInt(Constant.SETTING_KEY, -1);
@@ -34,6 +37,8 @@ public class MainActivity extends Activity {
     }
 
     public void btnOk(View view) {
+        // 强制隐藏软键盘
+        mManager.hideSoftInputFromWindow(etBattery.getWindowToken(), 0);
         String str = etBattery.getText().toString();
 
         if (!TextUtils.isEmpty(str)) {
