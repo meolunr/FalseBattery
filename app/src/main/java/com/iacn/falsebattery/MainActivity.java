@@ -20,6 +20,7 @@ public class MainActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        StatusBarUtils.setColor(this, getResources().getColor(R.color.gray));
 
         etBattery = (EditText) findViewById(R.id.et_battery);
 
