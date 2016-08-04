@@ -1,6 +1,7 @@
 package com.iacn.falsebattery;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -24,29 +25,37 @@ public class MainActivity extends Activity {
 
         etBattery = (EditText) findViewById(R.id.et_battery);
 
-        mPref = getSharedPreferences("setting", MODE_WORLD_READABLE);
-        int value = mPref.getInt("battery", -1);
+        mPref = getSharedPreferences(Constant.FILE_NAME_SETTING, MODE_WORLD_READABLE);
+        int value = mPref.getInt(Constant.SETTING_KEY, -1);
 
         if (value != -1) {
-            etBattery.setText(value + "");
+            etBattery.setText(String.valueOf(value));
         }
     }
 
     public void btnOk(View view) {
-        String s = etBattery.getText().toString();
+        String str = etBattery.getText().toString();
 
-        if (!TextUtils.isEmpty(s)) {
-            int battery = Integer.parseInt(s);
+        if (!TextUtils.isEmpty(str)) {
+            int battery = Integer.parseInt(str);
 
             if (battery > 100 || battery < 0) {
                 Toast.makeText(this, "电量应在0~100之间", Toast.LENGTH_SHORT).show();
             } else {
+                sendDataChanged(battery);
                 mPref.edit().putInt("battery", battery).apply();
                 Toast.makeText(this, "应用成功", Toast.LENGTH_SHORT).show();
             }
         } else {
+            sendDataChanged(-1);
             mPref.edit().putInt("battery", -1).apply();
             Toast.makeText(this, "关闭成功", Toast.LENGTH_SHORT).show();
         }
+    }
+
+    private void sendDataChanged(int value) {
+        Intent intent = new Intent(Constant.INTENT_DATA_CHANGED);
+        intent.putExtra("value", value);
+        sendBroadcast(intent);
     }
 }
