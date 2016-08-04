@@ -2,8 +2,8 @@
 <resources>
 
     <style name="AppTheme" parent="android:Theme.Material.Light.DarkActionBar">
-        <item name="colorPrimary">@color/gray</item>
-        <item name="colorPrimaryDark">@color/gray</item>
-        <item name="colorAccent">@color/gray</item>
+        <item name="android:colorPrimary">@color/gray</item>
+        <item name="android:colorPrimaryDark">@color/gray</item>
+        <item name="android:colorAccent">@color/gray</item>
     </style>
 </resources>

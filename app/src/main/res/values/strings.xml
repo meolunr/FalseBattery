@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">伪装电量</string>
+    <string name="module_desc">制造虚假的电量</string>
 </resources>
