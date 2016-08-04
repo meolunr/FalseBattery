@@ -1,4 +1,8 @@
 <resources>
     <string name="app_name">伪装电量</string>
+    <string name="desc">"本插件用来伪装电量，需要Xposed支持，修改后电量不升不降\n\n开启：输入想要伪装的电量，点击应用，一会就修改成功了\n\n关闭：不填直接点应用即可关闭伪装"</string>
     <string name="module_desc">制造虚假的电量</string>
+    <string name="no_modify">未修改</string>
+    <string name="apply">应用</string>
+    <string name="author">作者\niAcn</string>
 </resources>
