@@ -2,7 +2,7 @@ package com.iacn.falsebattery;
 
 /**
  * Created by iAcn on 2016/8/4
- * Emali iAcn0301@foxmail.com
+ * Email i@iacn.me
  */
 
 import android.content.BroadcastReceiver;

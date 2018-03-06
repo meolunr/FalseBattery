@@ -7,7 +7,7 @@ import android.preference.PreferenceActivity;
 
 /**
  * Created by iAcn on 2016/8/4
- * Emali iAcn0301@foxmail.com
+ * Email i@iacn.me
  */
 public class MainActivity extends PreferenceActivity implements Preference.OnPreferenceChangeListener {
 
