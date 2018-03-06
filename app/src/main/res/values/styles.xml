@@ -1,7 +1,0 @@
-<resources>
-
-    <style name="AppTheme" parent="AppThemeBase" />
-
-    <style name="AppThemeBase" parent="android:Theme.DeviceDefault.Light.DarkActionBar" />
-
-</resources>

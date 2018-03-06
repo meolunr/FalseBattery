@@ -1,84 +1,47 @@
 package com.iacn.falsebattery;
 
-import android.annotation.SuppressLint;
-import android.app.Activity;
-import android.content.Intent;
-import android.content.SharedPreferences;
-import android.os.Build;
 import android.os.Bundle;
-import android.text.TextUtils;
-import android.view.View;
-import android.view.inputmethod.InputMethodManager;
-import android.widget.EditText;
-import android.widget.Toast;
-
-import java.io.File;
+import android.preference.CheckBoxPreference;
+import android.preference.ListPreference;
+import android.preference.Preference;
+import android.preference.PreferenceActivity;
 
 /**
  * Created by iAcn on 2016/8/4
  * Emali iAcn0301@foxmail.com
  */
-public class MainActivity extends Activity {
-    private EditText etBattery;
-    private SharedPreferences mPref;
-    private InputMethodManager mManager;
+public class MainActivity extends PreferenceActivity {
+
+    private Preference description;
+    private ListPreference runningModeList;
+    private CheckBoxPreference batteryDisguiseCheckBox;
+    private Preference realBattery;
+    private CheckBoxPreference dynamicBatteryDisguiseCheckBox;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-        StatusBarUtils.setColor(this, getResources().getColor(R.color.gray));
-
-        etBattery = (EditText) findViewById(R.id.et_battery);
-        mManager = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
-
-        mPref = getSharedPreferences(Constant.FILE_NAME_SETTING, MODE_WORLD_READABLE);
-        int value = mPref.getInt(Constant.SETTING_KEY, -1);
-
-        if (value != -1) {
-            etBattery.setText(String.valueOf(value));
-        }
+        addPreferencesFromResource(R.xml.preference_main);
+        findPreference();
+        initRunningMode();
     }
 
-    public void btnOk(View view) {
-        // 强制隐藏软键盘
-        mManager.hideSoftInputFromWindow(etBattery.getWindowToken(), 0);
-        String str = etBattery.getText().toString();
+    private void findPreference() {
+        description = findPreference("description");
+        runningModeList = (ListPreference) findPreference("running_mode");
+        batteryDisguiseCheckBox = (CheckBoxPreference) findPreference("battery_disguise");
+        realBattery = findPreference("real_battery");
+        dynamicBatteryDisguiseCheckBox = (CheckBoxPreference) findPreference("dynamic_battery_disguise");
+    }
 
-        if (!TextUtils.isEmpty(str)) {
-            int battery = Integer.parseInt(str);
-
-            if (battery > 100 || battery < 0) {
-                Toast.makeText(this, "电量应在0~100之间", Toast.LENGTH_SHORT).show();
-            } else {
-                sendDataChanged(battery);
-                mPref.edit().putInt("battery", battery).apply();
-                Toast.makeText(this, "应用成功", Toast.LENGTH_SHORT).show();
-            }
+    private void initRunningMode() {
+        String value = runningModeList.getValue();
+        if ("0".equals(value)) {
+            runningModeList.setSummary(R.string.xposed_mode);
+            description.setSummary(R.string.xposed_mode_description);
         } else {
-            sendDataChanged(-1);
-            mPref.edit().putInt("battery", -1).apply();
-            Toast.makeText(this, "关闭成功", Toast.LENGTH_SHORT).show();
-        }
-    }
-
-    private void sendDataChanged(int value) {
-        Intent intent = new Intent(Constant.INTENT_DATA_CHANGED);
-        intent.putExtra("value", value);
-        sendBroadcast(intent);
-    }
-
-    @SuppressLint("SetWorldReadable")
-    private void setWorldReadable() {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-            File prefsDir = new File(getApplicationInfo().dataDir, "shared_prefs");
-            File prefsFile = new File(prefsDir, Constant.FILE_NAME_SETTING + ".xml");
-
-            if (prefsFile.exists()) {
-                prefsFile.setReadable(true, false);
-            }
-        } else {
-            getPreferenceManager().setSharedPreferencesMode(MODE_WORLD_READABLE);
+            runningModeList.setSummary(R.string.root_mode);
+            description.setSummary(R.string.root_mode_description);
         }
     }
 }

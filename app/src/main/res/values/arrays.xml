@@ -5,8 +5,8 @@
         <item>Root 模式</item>
     </string-array>
 
-    <integer-array name="running_mode_entryValues">
+    <string-array name="running_mode_entryValues">
         <item>0</item>
         <item>1</item>
-    </integer-array>
+    </string-array>
 </resources>
