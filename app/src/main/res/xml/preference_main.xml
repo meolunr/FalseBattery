@@ -16,7 +16,9 @@
 
     <PreferenceCategory android:title="@string/advanced_function">
 
-        <Preference android:title="@string/real_battery" />
+        <Preference
+            android:summary="@string/none_value"
+            android:title="@string/real_battery" />
 
         <com.iacn.falsebattery.MultiClickCheckBoxPreference
             android:key="dynamic_battery_disguise"

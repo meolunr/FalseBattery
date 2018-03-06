@@ -1,7 +1,6 @@
 package com.iacn.falsebattery;
 
 import android.os.Bundle;
-import android.preference.CheckBoxPreference;
 import android.preference.ListPreference;
 import android.preference.Preference;
 import android.preference.PreferenceActivity;
@@ -10,7 +9,7 @@ import android.preference.PreferenceActivity;
  * Created by iAcn on 2016/8/4
  * Emali iAcn0301@foxmail.com
  */
-public class MainActivity extends PreferenceActivity {
+public class MainActivity extends PreferenceActivity implements Preference.OnPreferenceChangeListener {
 
     private Preference description;
     private ListPreference runningModeList;
@@ -23,6 +22,7 @@ public class MainActivity extends PreferenceActivity {
         super.onCreate(savedInstanceState);
         addPreferencesFromResource(R.xml.preference_main);
         findPreference();
+        setListener();
         initRunningMode();
     }
 
@@ -34,6 +34,12 @@ public class MainActivity extends PreferenceActivity {
         dynamicBatteryDisguiseCheckBox = (MultiClickCheckBoxPreference) findPreference("dynamic_battery_disguise");
     }
 
+    private void setListener() {
+        runningModeList.setOnPreferenceChangeListener(this);
+        batteryDisguiseCheckBox.setOnPreferenceChangeListener(this);
+        dynamicBatteryDisguiseCheckBox.setOnPreferenceChangeListener(this);
+    }
+
     private void initRunningMode() {
         String value = runningModeList.getValue();
         if ("0".equals(value)) {
@@ -43,5 +49,11 @@ public class MainActivity extends PreferenceActivity {
             runningModeList.setSummary(R.string.root_mode);
             description.setSummary(R.string.root_mode_description);
         }
+    }
+
+    @Override
+    public boolean onPreferenceChange(Preference preference, Object newValue) {
+        System.out.println(preference + " = " + newValue);
+        return false;
     }
 }

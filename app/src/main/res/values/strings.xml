@@ -15,5 +15,6 @@
     <string name="battery_disguise">电量伪装</string>
     <string name="advanced_function">高级功能</string>
     <string name="real_battery">真实电量</string>
+    <string name="none_value">暂无数据</string>
     <string name="dynamic_battery_disguise">动态电量伪装</string>
 </resources>

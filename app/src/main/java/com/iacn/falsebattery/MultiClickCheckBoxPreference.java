@@ -20,7 +20,6 @@ import java.lang.reflect.Method;
 public class MultiClickCheckBoxPreference extends Preference {
 
     private Method performClickMethod;
-    private OnCheckedChangeListener mListener;
 
     public MultiClickCheckBoxPreference(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
@@ -66,16 +65,10 @@ public class MultiClickCheckBoxPreference extends Preference {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 persistBoolean(isChecked);
-
-                if (mListener != null)
-                    mListener.onCheckedChanged(buttonView, isChecked);
+                callChangeListener(isChecked);
             }
         });
 
         return layout;
-    }
-
-    public void setOnCheckedChangeListener(OnCheckedChangeListener listener) {
-        mListener = listener;
     }
 }
