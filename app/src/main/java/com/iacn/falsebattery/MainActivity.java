@@ -14,9 +14,9 @@ public class MainActivity extends PreferenceActivity {
 
     private Preference description;
     private ListPreference runningModeList;
-    private CheckBoxPreference batteryDisguiseCheckBox;
+    private MultiClickCheckBoxPreference batteryDisguiseCheckBox;
     private Preference realBattery;
-    private CheckBoxPreference dynamicBatteryDisguiseCheckBox;
+    private MultiClickCheckBoxPreference dynamicBatteryDisguiseCheckBox;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,9 +29,9 @@ public class MainActivity extends PreferenceActivity {
     private void findPreference() {
         description = findPreference("description");
         runningModeList = (ListPreference) findPreference("running_mode");
-        batteryDisguiseCheckBox = (CheckBoxPreference) findPreference("battery_disguise");
+        batteryDisguiseCheckBox = (MultiClickCheckBoxPreference) findPreference("battery_disguise");
         realBattery = findPreference("real_battery");
-        dynamicBatteryDisguiseCheckBox = (CheckBoxPreference) findPreference("dynamic_battery_disguise");
+        dynamicBatteryDisguiseCheckBox = (MultiClickCheckBoxPreference) findPreference("dynamic_battery_disguise");
     }
 
     private void initRunningMode() {

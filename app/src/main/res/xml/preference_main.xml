@@ -10,7 +10,7 @@
         android:key="running_mode"
         android:title="@string/running_mode" />
 
-    <CheckBoxPreference
+    <com.iacn.falsebattery.MultiClickCheckBoxPreference
         android:key="battery_disguise"
         android:title="@string/battery_disguise" />
 
@@ -18,7 +18,7 @@
 
         <Preference android:title="@string/real_battery" />
 
-        <CheckBoxPreference
+        <com.iacn.falsebattery.MultiClickCheckBoxPreference
             android:key="dynamic_battery_disguise"
             android:title="@string/dynamic_battery_disguise" />
 
