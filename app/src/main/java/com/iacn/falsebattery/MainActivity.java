@@ -66,6 +66,11 @@ public class MainActivity extends PreferenceActivity implements OnPreferenceChan
         syncRunningModeSummaryAndState(runningMode);
 
         batteryDisguiseCheckBox.setSummary(mBatteryDisguiseValue + "%");
+
+        int realBatteryValue = mPrefs.getInt("real_battery", -1);
+        if (realBatteryValue != -1) {
+            realBattery.setSummary(realBatteryValue + "%");
+        }
     }
 
     @Override
