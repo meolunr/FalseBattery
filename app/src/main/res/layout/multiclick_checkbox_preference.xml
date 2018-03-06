@@ -41,7 +41,6 @@
     <CheckBox
         android:id="@android:id/checkbox"
         android:layout_width="50dp"
-        android:layout_height="match_parent"
-        android:background="#ff0000" />
+        android:layout_height="match_parent" />
 
 </LinearLayout>

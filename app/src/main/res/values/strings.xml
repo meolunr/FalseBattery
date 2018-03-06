@@ -1,12 +1,13 @@
 <resources>
     <string name="app_name">伪装电量</string>
+    <string name="module_desc">伪装虚假的电量</string>
     <string name="xposed_mode_description">Xpsoed 模式：\n需要 Xposed 框架支持，可以查看真实电量，并使用高级功能</string>
     <string name="root_mode_description">ROOT 模式：\n仅可用静态伪装，某些机型可能无效</string>
     <string name="running_mode">运行模式</string>
     <string name="xposed_mode">Xposed 模式</string>
     <string name="root_mode">Root 模式</string>
     <string name="battery_disguise">电量伪装</string>
-    <string name="advanced_function">高级功能</string>
+    <string name="advanced_function">高级功能 (需要 Xposed)</string>
     <string name="real_battery">真实电量</string>
     <string name="none_value">暂无数据</string>
     <string name="dynamic_battery_disguise">动态电量伪装</string>

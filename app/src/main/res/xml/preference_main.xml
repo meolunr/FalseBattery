@@ -14,7 +14,9 @@
         android:key="battery_disguise"
         android:title="@string/battery_disguise" />
 
-    <PreferenceCategory android:title="@string/advanced_function">
+    <PreferenceCategory
+        android:key="advanced_function_category"
+        android:title="@string/advanced_function">
 
         <Preference
             android:summary="@string/none_value"

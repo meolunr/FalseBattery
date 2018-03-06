@@ -9,4 +9,7 @@ public class Constant {
     public static final String PACKAGE_NAME = "com.iacn.falsebattery";
     public static final String FILE_NAME_SETTING = "setting";
     public static final String SETTING_KEY = "battery";
+
+
+    public static final String BATTERY_DISGUISE_VALUE = "battery_disguise_value";
 }

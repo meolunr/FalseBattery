@@ -64,8 +64,9 @@ public class MultiClickCheckBoxPreference extends Preference {
         checkboxView.setOnCheckedChangeListener(new OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                persistBoolean(isChecked);
-                callChangeListener(isChecked);
+                if (callChangeListener(isChecked)) {
+                    persistBoolean(isChecked);
+                }
             }
         });
 
