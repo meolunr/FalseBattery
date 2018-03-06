@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <Preference android:key="description" />
+
+    <ListPreference
+        android:defaultValue="0"
+        android:entries="@array/running_mode_entries"
+        android:entryValues="@array/running_mode_entryValues"
+        android:key="running_mode"
+        android:title="@string/running_mode" />
+
+    <CheckBoxPreference
+        android:key="battery_disguise"
+        android:title="@string/battery_disguise" />
+
+    <PreferenceCategory android:title="@string/advanced_function">
+
+        <Preference android:title="@string/real_battery" />
+
+        <CheckBoxPreference
+            android:key="dynamic_battery_disguise"
+            android:title="@string/dynamic_battery_disguise" />
+
+    </PreferenceCategory>
+
+</PreferenceScreen>

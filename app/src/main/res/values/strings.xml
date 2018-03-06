@@ -5,4 +5,15 @@
     <string name="no_modify">未修改</string>
     <string name="apply">应用</string>
     <string name="author">作者\niAcn</string>
+
+
+    <string name="xposed_mode_description">Xpsoed 模式: 需要 Xposed 框架支持，可以查看真实电量，并使用高级功能</string>
+    <string name="root_mode_description">ROOT 模式: 仅可用静态伪装，部分机型无效</string>
+    <string name="running_mode">运行模式</string>
+    <string name="xposed_mode">Xposed 模式</string>
+    <string name="root_mode">Root 模式</string>
+    <string name="battery_disguise">电量伪装</string>
+    <string name="advanced_function">高级功能</string>
+    <string name="real_battery">真实电量</string>
+    <string name="dynamic_battery_disguise">动态电量伪装</string>
 </resources>
