@@ -119,14 +119,18 @@ public class MainActivity extends PreferenceActivity implements OnPreferenceChan
     }
 
     private void syncRunningModeSummaryAndState(String value) {
-        if ("0".equals(value)) {
+        boolean isXposedMode = "0".equals(value);
+        if (isXposedMode) {
             runningModeList.setSummary(R.string.xposed_mode);
             description.setSummary(R.string.xposed_mode_description);
-            advancedFuncCategory.setEnabled(true);
         } else {
             runningModeList.setSummary(R.string.root_mode);
             description.setSummary(R.string.root_mode_description);
-            advancedFuncCategory.setEnabled(false);
+        }
+
+        // 高级功能仅在 Xposed 模式下可用
+        for (int i = 0; i < advancedFuncCategory.getPreferenceCount(); i++) {
+            advancedFuncCategory.getPreference(i).setEnabled(isXposedMode);
         }
     }
 
@@ -191,5 +195,9 @@ public class MainActivity extends PreferenceActivity implements OnPreferenceChan
                 R.array.actions, R.layout.item_spinner);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(adapter);
+    }
+
+    private void handleRootMode() {
+
     }
 }
