@@ -9,4 +9,10 @@
         <item>0</item>
         <item>1</item>
     </string-array>
+
+    <string-array name="actions">
+        <item>+</item>
+        <item>-</item>
+    </string-array>
+
 </resources>

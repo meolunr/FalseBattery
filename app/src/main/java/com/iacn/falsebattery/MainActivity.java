@@ -13,7 +13,9 @@ import android.preference.PreferenceCategory;
 import android.preference.PreferenceManager;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.NumberPicker;
+import android.widget.Spinner;
 
 /**
  * Created by iAcn on 2016/8/4
@@ -60,16 +62,24 @@ public class MainActivity extends PreferenceActivity implements OnPreferenceChan
 
     private void initData() {
         mPrefs = PreferenceManager.getDefaultSharedPreferences(this);
-        mBatteryDisguiseValue = mPrefs.getInt(Constant.BATTERY_DISGUISE_VALUE, 0);
 
         String runningMode = runningModeList.getValue();
         syncRunningModeSummaryAndState(runningMode);
 
-        batteryDisguiseCheckBox.setSummary(mBatteryDisguiseValue + "%");
+        mBatteryDisguiseValue = mPrefs.getInt(Constant.BATTERY_DISGUISE_VALUE, -1);
+        if (mBatteryDisguiseValue != -1) {
+            batteryDisguiseCheckBox.setSummary(mBatteryDisguiseValue + "%");
+        }
 
         int realBatteryValue = mPrefs.getInt("real_battery", -1);
         if (realBatteryValue != -1) {
             realBattery.setSummary(realBatteryValue + "%");
+        }
+
+        int value = mPrefs.getInt(Constant.DYNAMIC_BATTERY_DISGUISE_VALUE, -1);
+        if (value != -1) {
+            String savedAction = mPrefs.getString(Constant.DYNAMIC_BATTERY_DISGUISE_ACTION, null);
+            dynamicBatteryDisguiseCheckBox.setSummary(savedAction + value + "%");
         }
     }
 
@@ -82,6 +92,7 @@ public class MainActivity extends PreferenceActivity implements OnPreferenceChan
                 break;
 
             case "dynamic_battery_disguise":
+                showSetDynamicBatteryDialog();
                 break;
         }
 
@@ -138,5 +149,47 @@ public class MainActivity extends PreferenceActivity implements OnPreferenceChan
                 })
                 .setNegativeButton("取消", null)
                 .show();
+    }
+
+    private void showSetDynamicBatteryDialog() {
+        View dialogView = LayoutInflater.from(this).inflate(R.layout.dialog_dynamic_battery_disguise, null);
+
+        final Spinner spinner = dialogView.findViewById(R.id.spinner);
+        initDynamicBatterySpinner(spinner);
+
+        final NumberPicker numberPicker = dialogView.findViewById(R.id.number_picker);
+        numberPicker.setMinValue(1);
+        numberPicker.setMaxValue(100);
+
+        String savedAction = mPrefs.getString(Constant.DYNAMIC_BATTERY_DISGUISE_ACTION, "+");
+        spinner.setSelection("+".equals(savedAction) ? 0 : 1);
+        numberPicker.setValue(mPrefs.getInt(Constant.DYNAMIC_BATTERY_DISGUISE_VALUE, 1));
+
+        new AlertDialog.Builder(this)
+                .setView(dialogView)
+                .setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        SharedPreferences.Editor editor = mPrefs.edit();
+                        // 保存动态伪装操作方式
+                        String action = (String) spinner.getSelectedItem();
+                        editor.putString(Constant.DYNAMIC_BATTERY_DISGUISE_ACTION, action);
+                        // 保存动态伪装值
+                        int value = numberPicker.getValue();
+                        editor.putInt(Constant.DYNAMIC_BATTERY_DISGUISE_VALUE, value);
+                        editor.apply();
+
+                        dynamicBatteryDisguiseCheckBox.setSummary(action + value + "%");
+                    }
+                })
+                .setNegativeButton("取消", null)
+                .show();
+    }
+
+    private void initDynamicBatterySpinner(Spinner spinner) {
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
+                R.array.actions, R.layout.item_spinner);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinner.setAdapter(adapter);
     }
 }

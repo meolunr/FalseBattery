@@ -12,4 +12,6 @@ public class Constant {
 
 
     public static final String BATTERY_DISGUISE_VALUE = "battery_disguise_value";
+    public static final String DYNAMIC_BATTERY_DISGUISE_ACTION = "dynamic_battery_disguise_action";
+    public static final String DYNAMIC_BATTERY_DISGUISE_VALUE = "dynamic_battery_disguise_value";
 }
