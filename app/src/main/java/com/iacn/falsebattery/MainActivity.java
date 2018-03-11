@@ -64,7 +64,7 @@ public class MainActivity extends PreferenceActivity implements OnPreferenceChan
         mPrefs = PreferenceManager.getDefaultSharedPreferences(this);
 
         String runningMode = runningModeList.getValue();
-        syncRunningModeSummaryAndState(runningMode);
+        syncRunningModeSummaryAndState("0".equals(runningMode));
 
         mBatteryDisguiseValue = mPrefs.getInt(Constant.BATTERY_DISGUISE_VALUE, -1);
         if (mBatteryDisguiseValue != -1) {
@@ -104,11 +104,10 @@ public class MainActivity extends PreferenceActivity implements OnPreferenceChan
         String key = preference.getKey();
         switch (key) {
             case "running_mode":
-                syncRunningModeSummaryAndState((String) newValue);
+                syncRunningModeSummaryAndState("0".equals(newValue));
                 break;
 
             case "battery_disguise":
-
                 break;
 
             case "dynamic_battery_disguise":
@@ -118,8 +117,7 @@ public class MainActivity extends PreferenceActivity implements OnPreferenceChan
         return true;
     }
 
-    private void syncRunningModeSummaryAndState(String value) {
-        boolean isXposedMode = "0".equals(value);
+    private void syncRunningModeSummaryAndState(boolean isXposedMode) {
         if (isXposedMode) {
             runningModeList.setSummary(R.string.xposed_mode);
             description.setSummary(R.string.xposed_mode_description);
@@ -197,7 +195,7 @@ public class MainActivity extends PreferenceActivity implements OnPreferenceChan
         spinner.setAdapter(adapter);
     }
 
-    private void handleRootMode() {
-
+    private void handleStaticDisguise() {
+        // TODO: 检查 Running Mode，默认 Xposed 模式
     }
 }
